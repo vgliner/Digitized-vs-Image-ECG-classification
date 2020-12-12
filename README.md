@@ -14,7 +14,7 @@
 * diagnosis_digitized2.hdf5
 * Digitized_emergency.p
 * ECG_paper.jpg
-* Unified_rendered_db.hdf5
+* Unified_rendered_db.hdf5 \
 If you want to retrain, do steps 5,6,7. Otherwise, skip to 8.
 5. Adjust the batch size in functions *RunNetDigitizedToMultiClassBinary* 
 (line 161 at Main_script.py) & *RunNoamsECG_ImageClassification* (lines 317,319 at Main_script.py) to fit the memory of your GPU
