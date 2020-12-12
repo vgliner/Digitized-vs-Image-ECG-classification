@@ -24,13 +24,13 @@ from ECG_multi_lead_dataloader import *
 import models
 
 # %% Definitions
-root_dir = r'C:\Users\vgliner\OneDrive - JNJ\Desktop\Data_new_format'+'\\'
-root_dir = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '..', 'Data'))+'//'
-root_dir = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '..', 'Data'))
+# root_dir = r'C:\Users\vgliner\OneDrive - JNJ\Desktop\Data_new_format'+'\\'
+# root_dir = os.path.abspath(os.path.join(
+#     os.path.dirname(__file__), '..', 'Data'))+'//'
+# root_dir = os.path.abspath(os.path.join(
+#     os.path.dirname(__file__), '..', 'Data'))
 
-root_dir = os.path.join(root_dir, '')
+# root_dir = os.path.join(root_dir, '')
 
 # %% The execution loop
 # %%  Settings
@@ -147,10 +147,9 @@ def RunNetDigitizedToMultiClassBinary(class_type=0, kernel_size=17, train_set_si
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print('Using device:', device)
     #ds = ECG_Multilead_Dataset(root_dir=root_dir)
-    ds = ECG_Multilead_Dataset(root_dir=root_dir, multiclass=False,
-                               multiclass_to_binary=True, multiclass_to_binary_type=class_type)
-    checkpoints_str = r'checkpoints/Ecg12LeadNetDigitizedToClass__DEC23__' + \
-        f'__{class_type}'
+    ds = ECG_Multilead_Dataset(multiclass=False,multiclass_to_binary=True, multiclass_to_binary_type=class_type)
+    checkpoints_str = r'checkpoints/Ecg12LeadNetDigitizedToClass__' + \
+        f'{class_type}'
 # %%  Prepare the dataloaders
     # Define how much data to load
     # for real training:
@@ -159,7 +158,7 @@ def RunNetDigitizedToMultiClassBinary(class_type=0, kernel_size=17, train_set_si
     # num_train = 3500
     num_val = 1000
     num_test = 5830
-    batch_size = 1024  # 512
+    batch_size = 80#1024  # 512
     # Training dataset & loader
     ds_train = tf.SubsetDataset(ds, num_train)
     dl_train = torch.utils.data.DataLoader(ds_train, batch_size, shuffle=False)
@@ -301,8 +300,7 @@ def RunNoamsECG_ImageClassification(perspective_transform=False, realtime_render
         str(perspective_transform)+r'Rendering' + str(realtime_rendering)
 
     apply_perspective_transformation = perspective_transform
-    ds = ECG_Rendered_Multilead_Dataset(root_dir=root_dir, realtime_rendering=realtime_rendering,
-                                        apply_perspective_transformation=apply_perspective_transformation)
+    ds = ECG_Rendered_Multilead_Dataset(realtime_rendering=realtime_rendering,apply_perspective_transformation=apply_perspective_transformation)
 
     # ds = ECG_Multilead_Dataset(root_dir=root_dir,transform=None, partial_upload=False)
     # Define how much data to load (only use a subset for speed)
@@ -694,24 +692,21 @@ def RunNetImageToMultiClassBinary(class_type=0, perspective_transform=False, run
 # %% Execution of the main loop
 if __name__ == "__main__":
     print('Start training')
-    print('Train Digitized to class')
-    for class_type in range(9):
-        for kernel_size in kernels:
-            with open("Execution_dump.txt", "a") as myfile:
-                myfile.write(f'Executing class number: {class_type}, {kernel_size} \n')
-                RunNetDigitizedToMultiClassBinary(class_type=class_type)    
+    # print('Train Digitized to class')
+    # for class_type in range(9):
+    #     with open("Execution_dump.txt", "a") as myfile:
+    #         myfile.write(f'Executing class number: {class_type}\n')
+    #         RunNetDigitizedToMultiClassBinary(class_type=class_type)    
     print('Train Image to class without perspective transformation')
     perspective_transform=False
+    realtime_rendering=False
     for class_type in range(9):
-        test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=False,classification_threshold=None,GPU_num=0)
+        test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=realtime_rendering,classification_threshold=None,GPU_num=0)
     print('Train Image to class with perspective transformation')
     perspective_transform=True
     for class_type in range(9):
-        test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=False,classification_threshold=None,GPU_num=0)
-# %% Digitized to class
-    # RunVadimsNetDigitizedToMultiClass()
-    # RunNoamsNetDigitizedToClass()
-    # RunNetDigitizedToMultiClassBinary(class_type=5)
+        test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=realtime_rendering,classification_threshold=None,GPU_num=0)
+
 
 
 ###############################    ##########################################
