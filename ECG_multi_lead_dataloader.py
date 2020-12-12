@@ -78,7 +78,7 @@ class ECG_Multilead_Dataset(Dataset):
                     #         self.data.append(((short_leads_data[batch_cntr][record_in_batch_cntr],long_lead_data[batch_cntr][record_in_batch_cntr]),bool(classification_data[batch_cntr][record_in_batch_cntr])))
 
 ########################
-        pickled_data=pickle.load( open(os.path.join(self.dataset_path,'Digitized_emergency.p'), "rb" ) )
+        pickled_data=pickle.load( open(self.dataset_path, "rb" ) )
         short_leads_data_debug=[]
         long_lead_data_debug=[]
         Data_pickled=pickled_data['Data']
