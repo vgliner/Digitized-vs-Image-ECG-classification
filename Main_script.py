@@ -692,11 +692,11 @@ def RunNetImageToMultiClassBinary(class_type=0, perspective_transform=False, run
 # %% Execution of the main loop
 if __name__ == "__main__":
     print('Start training')
-    # print('Train Digitized to class')
-    # for class_type in range(9):
-    #     with open("Execution_dump.txt", "a") as myfile:
-    #         myfile.write(f'Executing class number: {class_type}\n')
-    #         RunNetDigitizedToMultiClassBinary(class_type=class_type)    
+    print('Train Digitized to class')
+    for class_type in range(9):
+        with open("Execution_dump.txt", "a") as myfile:
+            myfile.write(f'Executing class number: {class_type}\n')
+            RunNetDigitizedToMultiClassBinary(class_type=class_type)    
     print('Train Image to class without perspective transformation')
     perspective_transform=False
     realtime_rendering=False

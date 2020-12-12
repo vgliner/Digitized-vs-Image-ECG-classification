@@ -31,7 +31,7 @@ class ECG_Rendered_Multilead_Dataset(Dataset):
         self.apply_perspective_transformation=apply_perspective_transformation
 
         if root_dir is None:
-            self.dataset_path = os.getcwd() + '\\Chineese_database\\'
+            self.dataset_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'Database')
         else:
             self.dataset_path = root_dir
         
@@ -47,7 +47,7 @@ class ECG_Rendered_Multilead_Dataset(Dataset):
             image_data=[]
             self.last_chunk_uploaded_to_memory=0
             for cntr in range(3):
-                f=h5py.File(root_dir+'diagnosis_digitized'+str(cntr)+'.hdf5', 'r')
+                f=h5py.File(os.path.join(self.dataset_path,'diagnosis_digitized'+str(cntr)+'.hdf5'), 'r')
                 f_keys=f.keys()
                 for key in f_keys:
                     n1 = f.get(key)
@@ -58,7 +58,7 @@ class ECG_Rendered_Multilead_Dataset(Dataset):
                     self.classification_data.append(bool(classification_data[batch_cntr][record_in_batch_cntr]))
     
         if self.realtime_rendering==True:
-            self.canvas= cv2.imread(root_dir+'ECG_paper.jpg',cv2.IMREAD_COLOR )
+            self.canvas= cv2.imread(os.path.join(self.dataset_path,'ECG_paper.jpg'),cv2.IMREAD_COLOR )
             self.canvas = cv2.resize(self.canvas,None,fx=1.2, fy=1.2, interpolation = cv2.INTER_CUBIC)
             self.ECG_Data_init = ECG_Multilead_Dataset(root_dir=self.dataset_path,transform=self.transform, partial_upload=self.partial_upload)
 
@@ -93,7 +93,7 @@ class ECG_Rendered_Multilead_Dataset(Dataset):
                         sample = self.samples[idx % 1000]
                     return sample
             else:
-                with h5py.File(self.root_dir+  "Unified_rendered_db.hdf5", "r") as f:
+                with h5py.File(os.path.join(self.dataset_path,"Unified_rendered_db.hdf5"), "r") as f:
                     n1=f.get(str(idx))
                     image_data=np.array(n1)
                     if self.apply_perspective_transformation:

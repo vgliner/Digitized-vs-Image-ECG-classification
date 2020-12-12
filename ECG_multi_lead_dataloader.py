@@ -18,7 +18,7 @@ class ECG_Multilead_Dataset(Dataset):
         self.new_format=new_format
 
         if root_dir is None:
-            self.dataset_path = os.getcwd()+'\\Chineese_database\\'
+            self.dataset_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'Database',"Digitized_emergency.p")
         else:
             self.dataset_path = root_dir
 
@@ -78,7 +78,7 @@ class ECG_Multilead_Dataset(Dataset):
                     #         self.data.append(((short_leads_data[batch_cntr][record_in_batch_cntr],long_lead_data[batch_cntr][record_in_batch_cntr]),bool(classification_data[batch_cntr][record_in_batch_cntr])))
 
 ########################
-        pickled_data=pickle.load( open(root_dir+ "Digitized_emergency.p", "rb" ) )
+        pickled_data=pickle.load( open(os.path.join(self.dataset_path,'Digitized_emergency.p'), "rb" ) )
         short_leads_data_debug=[]
         long_lead_data_debug=[]
         Data_pickled=pickled_data['Data']
