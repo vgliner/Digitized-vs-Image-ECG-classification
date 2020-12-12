@@ -158,7 +158,7 @@ def RunNetDigitizedToMultiClassBinary(class_type=0, kernel_size=17, train_set_si
     # num_train = 3500
     num_val = 1000
     num_test = 5830
-    batch_size = 80#1024  # 512
+    batch_size = 1024  # 512
     # Training dataset & loader
     ds_train = tf.SubsetDataset(ds, num_train)
     dl_train = torch.utils.data.DataLoader(ds_train, batch_size, shuffle=False)
