@@ -97,7 +97,7 @@ class ECG_Rendered_Multilead_Dataset(Dataset):
                     n1=f.get(str(idx))
                     image_data=np.array(n1)
                     if self.apply_perspective_transformation:
-                        image_data=Perspective_transformation_application(image_data,database_path=self.root_dir)
+                        image_data=Perspective_transformation_application(image_data,database_path=self.dataset_path)
               
 
                 sample=(image_data,self.classification_data[idx])
@@ -108,7 +108,7 @@ class ECG_Rendered_Multilead_Dataset(Dataset):
             # print(f'Size of canvas is : {np.shape(image_data)}')
             if self.apply_perspective_transformation:
                 image_size_before_rendering=np.shape(image_data)
-                image_data=Perspective_transformation_application(image_data,database_path=self.root_dir,realtime_rendering=True)
+                image_data=Perspective_transformation_application(image_data,database_path=self.dataset_path,realtime_rendering=True)
                 image_size_after_rendering=np.shape(image_data)    
                 size_diff=(np.asarray(image_size_after_rendering)-np.asarray(image_size_before_rendering))
                 if self.new_format==True:
