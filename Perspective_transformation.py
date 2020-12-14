@@ -8,6 +8,7 @@ from scipy import misc, ndimage
 from ECG_multi_lead_dataloader import *
 # import cv2
 import numpy as np
+import os
 
 
 
@@ -71,7 +72,7 @@ class RandomPerspective(object):
 
 def Perspective_transformation_application(image,database_path='',realtime_rendering=False):
     k=str(random.randint(1,10))
-    with h5py.File(database_path+'backgrounds_db.hdf5', 'r') as f:
+    with h5py.File(os.path.join(database_path,'backgrounds_db.hdf5'), 'r') as f:
         bgrnd= np.array(f[k])    
     merged_im=bgrnd
     K=image

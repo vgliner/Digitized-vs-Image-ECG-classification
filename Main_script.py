@@ -419,7 +419,7 @@ def RunNoamsECG_ImageClassification(perspective_transform=False, realtime_render
     if os.path.isfile(path+'//'+checkpoint_filename):
         num_epochs = 0
     else:
-        num_epochs = 10
+        num_epochs = 30
 
     loss_fn = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
@@ -700,12 +700,10 @@ if __name__ == "__main__":
     print('Train Image to class without perspective transformation')
     perspective_transform=False
     realtime_rendering=False
-    for class_type in range(9):
-        test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=realtime_rendering,classification_threshold=None,GPU_num=0)
+    test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=realtime_rendering,classification_threshold=None,GPU_num=0)
     print('Train Image to class with perspective transformation')
     perspective_transform=True
-    for class_type in range(9):
-        test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=realtime_rendering,classification_threshold=None,GPU_num=0)
+    test_results=RunNoamsECG_ImageClassification(perspective_transform=perspective_transform, realtime_rendering=realtime_rendering,classification_threshold=None,GPU_num=0)
 
 
 

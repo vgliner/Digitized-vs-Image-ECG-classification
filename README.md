@@ -7,13 +7,14 @@
 ### Instructions for use
 1. Download the project from git and unzip
 2. Download the digitized ECG database from: (https://technionmail-my.sharepoint.com/:u:/r/personal/vadimgl_campus_technion_ac_il/Documents/Digitized_emergency.zipx?csf=1&web=1&e=aKE0hW)
-3. Download the Images ECG database from: (https://technionmail-my.sharepoint.com/:u:/g/personal/vadimgl_campus_technion_ac_il/EeTTvjs0gDFKn5lG837ICtwB_y109zWoFW6xTSfJWNXr3A?e=3ObKRF)
-4. Unzip databases from paragraphs 2,3 and put the files under the folder *Database* in project's directory. Make sure that you have in this folder the following files:
+3. Download the Images ECG database from: (https://technionmail-my.sharepoint.com/:u:/g/personal/vadimgl_campus_technion_ac_il/EeTTvjs0gDFKn5lG837ICtwB_y109zWoFW6xTSfJWNXr3A?e=3ObKRF) and backgrounds file from: (https://technionmail-my.sharepoint.com/:u:/g/personal/vadimgl_campus_technion_ac_il/ESmEGK5NC-NCjI9XnXdNz6YBsCtOlvCeC5rDR2U5HsunOg?e=58NELn)
+4. Unzip databases from paragraphs 2,3 and put all the files under the folder *Database* in project's directory. Make sure that you have in this folder the following files:
 * diagnosis_digitized0.hdf5
 * diagnosis_digitized1.hdf5
 * diagnosis_digitized2.hdf5
 * Digitized_emergency.p
 * ECG_paper.jpg
+* backgrounds_db.hdf5
 * Unified_rendered_db.hdf5 \
 If you want to retrain, do steps 5,6,7. Otherwise, skip to 8.
 5. Adjust the batch size in functions *RunNetDigitizedToMultiClassBinary* 
